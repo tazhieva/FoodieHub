@@ -16,6 +16,11 @@
 		71161A342A152C9500EBE988 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A332A152C9500EBE988 /* TabBarViewController.swift */; };
 		71161A372A15314900EBE988 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71161A362A15314900EBE988 /* SnapKit */; };
 		71161A3E2A15CDA600EBE988 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A3D2A15CDA600EBE988 /* Product.swift */; };
+		71161A442A16015400EBE988 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A432A16015400EBE988 /* AccountViewController.swift */; };
+		71161A462A165FEC00EBE988 /* CartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A452A165FEC00EBE988 /* CartButton.swift */; };
+		71161A482A1667E400EBE988 /* CartViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A472A1667E400EBE988 /* CartViewCell.swift */; };
+		71161A4A2A167E5800EBE988 /* GHTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A492A167E5800EBE988 /* GHTextfield.swift */; };
+		71161A4D2A16911E00EBE988 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A4C2A16911E00EBE988 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +34,11 @@
 		71161A2F2A152C4000EBE988 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		71161A332A152C9500EBE988 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		71161A3D2A15CDA600EBE988 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		71161A432A16015400EBE988 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		71161A452A165FEC00EBE988 /* CartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartButton.swift; sourceTree = "<group>"; };
+		71161A472A1667E400EBE988 /* CartViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewCell.swift; sourceTree = "<group>"; };
+		71161A492A167E5800EBE988 /* GHTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHTextfield.swift; sourceTree = "<group>"; };
+		71161A4C2A16911E00EBE988 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +92,8 @@
 			isa = PBXGroup;
 			children = (
 				71161A202A15289000EBE988 /* ProductViewCell.swift */,
+				71161A452A165FEC00EBE988 /* CartButton.swift */,
+				71161A492A167E5800EBE988 /* GHTextfield.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -98,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				71161A0C2A1525F700EBE988 /* AppDelegate.swift */,
+				71161A412A16011300EBE988 /* Account */,
 				71161A2C2A152C1900EBE988 /* Cart */,
 				71161A312A152C6D00EBE988 /* TabBar */,
 				71161A262A1528CC00EBE988 /* Product */,
@@ -135,6 +148,7 @@
 		71161A2D2A152C2500EBE988 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				71161A472A1667E400EBE988 /* CartViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -169,6 +183,31 @@
 				71161A3D2A15CDA600EBE988 /* Product.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		71161A412A16011300EBE988 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				71161A4B2A16910800EBE988 /* Model */,
+				71161A422A16013C00EBE988 /* ViewController */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		71161A422A16013C00EBE988 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				71161A432A16015400EBE988 /* AccountViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		71161A4B2A16910800EBE988 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				71161A4C2A16911E00EBE988 /* User.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,10 +288,15 @@
 			files = (
 				71161A302A152C4000EBE988 /* CartViewController.swift in Sources */,
 				71161A212A15289000EBE988 /* ProductViewCell.swift in Sources */,
+				71161A442A16015400EBE988 /* AccountViewController.swift in Sources */,
 				71161A232A1528A400EBE988 /* ProductListViewController.swift in Sources */,
+				71161A4A2A167E5800EBE988 /* GHTextfield.swift in Sources */,
+				71161A482A1667E400EBE988 /* CartViewCell.swift in Sources */,
 				71161A342A152C9500EBE988 /* TabBarViewController.swift in Sources */,
 				71161A0D2A1525F700EBE988 /* AppDelegate.swift in Sources */,
 				71161A3E2A15CDA600EBE988 /* Product.swift in Sources */,
+				71161A462A165FEC00EBE988 /* CartButton.swift in Sources */,
+				71161A4D2A16911E00EBE988 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

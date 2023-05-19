@@ -19,8 +19,9 @@ class TabBarViewController: UITabBarController {
     
     func setupVCs() {
         viewControllers = [
-            createNavController(for: ProductListViewController(), title: NSLocalizedString("Home", comment: ""), image: UIImage(systemName: "house")!),
-            createNavController(for: CartViewController(), title: NSLocalizedString("Cart", comment: ""), image: UIImage(systemName: "bag")!)
+            createNavController(for: ProductListViewController(), title: NSLocalizedString("Главная", comment: ""), image: UIImage(systemName: "house")!),
+            createNavController(for: CartViewController(), title: NSLocalizedString("Корзина", comment: ""), image: UIImage(systemName: "bag")!),
+            createNavController(for: AccountViewController(), title: NSLocalizedString("Аккаунт", comment: ""), image: UIImage(systemName: "carrot")!)
         ]
     }
     
@@ -30,8 +31,7 @@ class TabBarViewController: UITabBarController {
         let navController = UINavigationController(rootViewController: rootViewController)
         rootViewController.title = title
         navController.tabBarItem.image = image
-//        navController.navigationBar.prefersLargeTitles = true
-
+        
         return navController
     }
    

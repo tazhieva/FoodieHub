@@ -1,5 +1,5 @@
 //
-//  ProductViewCelll.swift
+//  CartViewCell.swift
 //  FoodieHub
 //
 //  Created by Акмарал Тажиева on 18.05.2023.
@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-class ProductViewCell: UICollectionViewCell {
+class CartViewCell: UITableViewCell {
     
-    static let identifier = "ProductViewCell"
+    static let identifier = "CartViewCell"
     
     // MARK: - UI Elements
     
@@ -34,21 +34,26 @@ class ProductViewCell: UICollectionViewCell {
     
     private let cartButton = CartButton()
     
-    private lazy var productStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [productImageView, productTitleLabel, cartButton])
+    private lazy var vStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [productTitleLabel, cartButton])
         stack.axis = .vertical
-        stack.alignment = .center
-        stack.layer.cornerRadius = 12
-        stack.layer.borderColor = UIColor.lightGray.cgColor
-        stack.layer.borderWidth = 0.3
-        stack.setCustomSpacing(10, after: cartButton)
+        stack.alignment = .firstBaseline
         return stack
     }()
     
+    private lazy var productStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [productImageView, vStackView])
+        stack.axis = .horizontal
+        stack.spacing = 8
+        stack.alignment = .firstBaseline
+        return stack
+    }()
+    
+
     // MARK: - LifeCycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         configUI()
     }
     
@@ -59,17 +64,17 @@ class ProductViewCell: UICollectionViewCell {
 
  // MARK: - Configure Labels
 
-extension ProductViewCell {
+extension CartViewCell {
     func configureLabels(product: Product) {
-         productTitleLabel.text = product.name
-         cartButton.amount = product.amount ?? 0
-         cartButton.price = "\(product.price) ₸"
-     }
+        productTitleLabel.text = product.name
+        cartButton.amount = product.amount ?? 0
+        cartButton.price = product.price
+    }
 }
 
 // MARK: - Configure UI
 
-extension ProductViewCell {
+extension CartViewCell {
     private func configUI() {
         contentView.addSubview(productStackView)
         makeConstraints()
@@ -77,16 +82,20 @@ extension ProductViewCell {
     
     private func makeConstraints() {
         productStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(5)
-        }
-        productTitleLabel.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(15)
+            make.edges.equalToSuperview().inset(10)
         }
         
         productImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.width.equalTo(contentView.snp.width).multipliedBy(0.8)
-            make.height.equalTo(productImageView.snp.width).multipliedBy(1.3)
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().inset(10)
+            make.width.equalTo(contentView.snp.width).multipliedBy(0.2)
+            make.height.equalTo(productImageView.snp.width)
+        }
+        
+        vStackView.snp.makeConstraints { make in
+            make.centerY.equalTo(productImageView.snp.centerY)
+
         }
     }
 }
+

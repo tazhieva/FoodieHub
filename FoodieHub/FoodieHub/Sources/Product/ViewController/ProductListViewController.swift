@@ -11,6 +11,7 @@ import SnapKit
 class ProductListViewController: UIViewController {
     
     private var collectionView: UICollectionView!
+    
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -23,6 +24,7 @@ class ProductListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureCollectionView()
+        navigationItem.backButtonDisplayMode = .minimal
     }
     
     private func configureCollectionView() {
@@ -41,13 +43,15 @@ class ProductListViewController: UIViewController {
 
 extension ProductListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return MockData.products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductViewCell.identifier, for: indexPath) as? ProductViewCell else {
             return UICollectionViewCell()
         }
+        
+        cell.configureLabels(product: MockData.products[indexPath.row])
         return cell
     }
     

@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func configUI() {
         UINavigationBar.appearance().barStyle = .default
         UINavigationBar.appearance().layer.shadowColor = UIColor.lightGray.cgColor
+        UINavigationBar.appearance().tintColor = .black
         UINavigationBar.appearance().backItem?.backButtonDisplayMode = .minimal
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.black,
