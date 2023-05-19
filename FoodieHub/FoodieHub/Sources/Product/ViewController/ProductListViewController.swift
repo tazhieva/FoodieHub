@@ -11,7 +11,12 @@ import SnapKit
 class ProductListViewController: UIViewController {
     
     private var collectionView: UICollectionView!
+    private let imageLoader = ImageDownloader()
     
+    var cartItems: [CartItem] = []
+    
+    var cartManager = CartManager()
+
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -49,6 +54,12 @@ extension ProductListViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductViewCell.identifier, for: indexPath) as? ProductViewCell else {
             return UICollectionViewCell()
+        }
+        
+        imageLoader.downloadImage(from: MockData.products[indexPath.row].image) { [weak self] image in
+            DispatchQueue.main.async {
+                cell.productImage = image
+            }
         }
         
         cell.configureLabels(product: MockData.products[indexPath.row])

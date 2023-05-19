@@ -12,6 +12,8 @@ class CartViewController: UIViewController {
     
     // MARK: - UI Elements
     
+    private let imageLoader = ImageDownloader()
+    
     private var tableView: UITableView = {
         let view = UITableView()
         view.backgroundColor = .clear
@@ -90,6 +92,13 @@ extension CartViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CartViewCell.identifier, for: indexPath) as? CartViewCell else {
             return UITableViewCell()
         }
+        
+        imageLoader.downloadImage(from: MockData.products[indexPath.row].image) { [weak self] image in
+            DispatchQueue.main.async {
+                cell.productImage = image
+            }
+        }
+        
         cell.configureLabels(product: MockData.products[indexPath.row])
         
         return cell

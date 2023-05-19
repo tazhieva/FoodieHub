@@ -14,6 +14,13 @@ class ProductViewCell: UICollectionViewCell {
     
     // MARK: - UI Elements
     
+    var productImage: UIImage? {
+        didSet {
+            guard let productImage = productImage else { return }
+            productImageView.image = productImage
+        }
+    }
+    
     private let productImageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "productImage")
@@ -63,7 +70,7 @@ extension ProductViewCell {
     func configureLabels(product: Product) {
          productTitleLabel.text = product.name
          cartButton.amount = product.amount ?? 0
-         cartButton.price = "\(product.price) ₸"
+         cartButton.price = product.price
      }
 }
 

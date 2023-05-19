@@ -9,9 +9,9 @@ import UIKit
 
 class CartButton: UIView {
     
-    var price: Double? {
+    var price: Int? {
         didSet {
-            productCostLabel.text = "\(price ?? 0)"
+            productCostLabel.text = "\(price ?? 0) ₸"
         }
     }
     
@@ -36,11 +36,11 @@ class CartButton: UIView {
         return button
     }()
     
-    private let cartSubstructButton: UIButton = {
+    private let cartRemoveButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "minus"), for: .normal)
         button.isHidden = true
-        button.addTarget(self, action: #selector(substructButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -54,7 +54,7 @@ class CartButton: UIView {
     }()
     
     private lazy var hStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [productCostLabel, cartSubstructButton, productAmount, cartAddButton])
+        let stack = UIStackView(arrangedSubviews: [productCostLabel, cartRemoveButton, productAmount, cartAddButton])
         stack.alignment = .center
         stack.axis = .horizontal
         stack.spacing = 5
@@ -85,7 +85,7 @@ extension CartButton {
         updateUI()
     }
     
-    @objc private func substructButtonTapped() {
+    @objc private func removeButtonTapped() {
         guard var currentAmount = amount, currentAmount > 0 else {
             return
         }
@@ -105,16 +105,15 @@ extension CartButton {
             
             if currentAmount > 0 {
                 productCostLabel.isHidden = true
-                cartSubstructButton.isHidden = false
+                cartRemoveButton.isHidden = false
                 productAmount.isHidden = false
             } else {
                 productCostLabel.isHidden = false
-                cartSubstructButton.isHidden = true
+                cartRemoveButton.isHidden = true
                 productAmount.isHidden = true
             }
         }
     }
-    
 }
 
 // MARK: - Configure UI

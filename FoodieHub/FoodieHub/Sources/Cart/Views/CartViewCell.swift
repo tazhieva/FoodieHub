@@ -12,6 +12,13 @@ class CartViewCell: UITableViewCell {
     
     static let identifier = "CartViewCell"
     
+    var productImage: UIImage? {
+        didSet {
+            guard let productImage = productImage else { return }
+            productImageView.image = productImage
+        }
+    }
+    
     // MARK: - UI Elements
     
     private let productImageView: UIImageView = {
