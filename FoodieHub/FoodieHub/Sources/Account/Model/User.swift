@@ -7,4 +7,10 @@
 
 import UIKit
 
-
+struct User {
+    var username: String?
+    var phoneNumber: String?
+    var address: String?
+    var deliveryDay: String?
+    var deliveryPeriod: String?
+}

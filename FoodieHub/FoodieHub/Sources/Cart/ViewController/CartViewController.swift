@@ -14,6 +14,13 @@ class CartViewController: UIViewController {
     
     // MARK: - UI Elements
     
+//    private let cartEmptyLabel: UILabel = {
+//        let label = UILabel
+//        label
+//        return label
+//    }()
+    
+    
     private var tableView: UITableView = {
         let view = UITableView()
         view.backgroundColor = .clear
@@ -28,13 +35,9 @@ class CartViewController: UIViewController {
         return view
     }()
     
-    private let payButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
-        button.titleLabel?.textColor = .white
-        button.layer.cornerRadius = 12
-        button.backgroundColor = UIColor(named: "mainColor")
-        
+    private let payButton: FHButton = {
+        let button = FHButton(title: "Перейти к оплате \(CartManager.shared.cartTotalPrice) ₸")
+        button.addTarget(self, action: #selector(didPayButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -50,10 +53,28 @@ class CartViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         cartItems = CartManager.shared.cartItems
-        payButton.setTitle("Перейти к оплате \(CartManager.shared.cartTotalPrice) ₸", for: .normal)
         tableView.reloadData()
     }
 }
+
+// MARK: - Actions
+
+extension CartViewController {
+    @objc private func didPayButtonTapped() {
+        let alert = UIAlertController(title: "", message: "Чтобы оформить заказ, заполните ваши контактные данные", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Отменить", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Заполнить", style: .default) { _ in
+            let vc = RegisterViewController()
+            vc.hidesBottomBarWhenPushed = true
+            vc.modalPresentationStyle = .fullScreen
+            vc.modalTransitionStyle = .coverVertical
+            self.present(vc, animated: true)
+        })
+        self.present(alert, animated: true)
+    }
+
+}
+
 
 // MARK: - Configure TableView
 
@@ -80,7 +101,7 @@ extension CartViewController {
         payButton.snp.makeConstraints { make in
             make.top.equalTo(tableView.snp.bottom).offset(20)
             make.left.right.equalToSuperview().inset(30)
-            make.height.equalTo(40)
+            make.height.equalTo(50)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
             
         }

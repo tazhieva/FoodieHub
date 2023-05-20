@@ -26,6 +26,10 @@
 		71161A592A179DBB00EBE988 /* CartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A582A179DBB00EBE988 /* CartManager.swift */; };
 		71F60E9F2A187CB30000FEA5 /* AmountButtonViewItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F60E9E2A187CB30000FEA5 /* AmountButtonViewItems.swift */; };
 		71F60EA12A187CDF0000FEA5 /* CartButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F60EA02A187CDF0000FEA5 /* CartButtonType.swift */; };
+		71F60EA52A1889910000FEA5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F60EA42A1889910000FEA5 /* RegisterViewController.swift */; };
+		71F60EA82A189C860000FEA5 /* FHButtoon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F60EA72A189C860000FEA5 /* FHButtoon.swift */; };
+		71F60EAC2A18A6320000FEA5 /* DeliverySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F60EAB2A18A6320000FEA5 /* DeliverySelectionView.swift */; };
+		71F60EAE2A18C8F30000FEA5 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F60EAD2A18C8F30000FEA5 /* UserSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +53,10 @@
 		71161A582A179DBB00EBE988 /* CartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartManager.swift; sourceTree = "<group>"; };
 		71F60E9E2A187CB30000FEA5 /* AmountButtonViewItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountButtonViewItems.swift; sourceTree = "<group>"; };
 		71F60EA02A187CDF0000FEA5 /* CartButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartButtonType.swift; sourceTree = "<group>"; };
+		71F60EA42A1889910000FEA5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		71F60EA72A189C860000FEA5 /* FHButtoon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FHButtoon.swift; sourceTree = "<group>"; };
+		71F60EAB2A18A6320000FEA5 /* DeliverySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliverySelectionView.swift; sourceTree = "<group>"; };
+		71F60EAD2A18C8F30000FEA5 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +111,6 @@
 			children = (
 				71161A202A15289000EBE988 /* ProductViewCell.swift */,
 				71F60E9D2A187BA40000FEA5 /* AmountButtonView */,
-				71161A492A167E5800EBE988 /* GHTextfield.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -122,6 +129,7 @@
 				71161A0C2A1525F700EBE988 /* AppDelegate.swift */,
 				71161A502A174E2E00EBE988 /* Utilities */,
 				71161A562A179D8E00EBE988 /* Managers */,
+				71F60EA22A1889680000FEA5 /* Register */,
 				71161A412A16011300EBE988 /* Account */,
 				71161A2C2A152C1900EBE988 /* Cart */,
 				71161A312A152C6D00EBE988 /* TabBar */,
@@ -226,7 +234,7 @@
 		71161A502A174E2E00EBE988 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				71161A512A174E4100EBE988 /* ImageDownloader.swift */,
+				71F60EA62A189C6A0000FEA5 /* CustomViews */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -244,6 +252,8 @@
 			isa = PBXGroup;
 			children = (
 				71161A582A179DBB00EBE988 /* CartManager.swift */,
+				71F60EAD2A18C8F30000FEA5 /* UserSettings.swift */,
+				71161A512A174E4100EBE988 /* ImageDownloader.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -255,6 +265,32 @@
 				71F60E9E2A187CB30000FEA5 /* AmountButtonViewItems.swift */,
 			);
 			path = AmountButtonView;
+			sourceTree = "<group>";
+		};
+		71F60EA22A1889680000FEA5 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				71F60EA32A18896F0000FEA5 /* ViewController */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		71F60EA32A18896F0000FEA5 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				71F60EA42A1889910000FEA5 /* RegisterViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		71F60EA62A189C6A0000FEA5 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				71161A492A167E5800EBE988 /* GHTextfield.swift */,
+				71F60EAB2A18A6320000FEA5 /* DeliverySelectionView.swift */,
+				71F60EA72A189C860000FEA5 /* FHButtoon.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,11 +377,15 @@
 				71161A4A2A167E5800EBE988 /* GHTextfield.swift in Sources */,
 				71161A482A1667E400EBE988 /* CartViewCell.swift in Sources */,
 				71F60EA12A187CDF0000FEA5 /* CartButtonType.swift in Sources */,
+				71F60EAC2A18A6320000FEA5 /* DeliverySelectionView.swift in Sources */,
 				71161A342A152C9500EBE988 /* TabBarViewController.swift in Sources */,
 				71161A0D2A1525F700EBE988 /* AppDelegate.swift in Sources */,
 				71161A592A179DBB00EBE988 /* CartManager.swift in Sources */,
+				71F60EA82A189C860000FEA5 /* FHButtoon.swift in Sources */,
+				71F60EAE2A18C8F30000FEA5 /* UserSettings.swift in Sources */,
 				71161A3E2A15CDA600EBE988 /* Product.swift in Sources */,
 				71161A462A165FEC00EBE988 /* AmountButtonView.swift in Sources */,
+				71F60EA52A1889910000FEA5 /* RegisterViewController.swift in Sources */,
 				71F60E9F2A187CB30000FEA5 /* AmountButtonViewItems.swift in Sources */,
 				71161A542A17940F00EBE988 /* CartItem.swift in Sources */,
 				71161A4D2A16911E00EBE988 /* User.swift in Sources */,

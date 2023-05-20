@@ -21,21 +21,28 @@ class AccountViewController: UIViewController {
     private let subtitleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .regular)
-        label.text = "Заполните поля ниже для совершения заказа \nв нашем приложении🥑"
+        label.text = "Пройдите регистрацию для совершения заказа \nв нашем приложении🥑"
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
     }()
     
-    private let usernameTextField = GHTextfield()
-    private let phoneNumberTextField = GHTextfield()
-    private let addredddTextField = GHTextfield()
-
+    private let registerButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+        button.titleLabel?.textColor = .white
+        button.layer.cornerRadius = 12
+        button.setTitle("Регистрация", for: .normal)
+        button.backgroundColor = UIColor(named: "mainColor")
+        button.addTarget(self, action: #selector(didRegisterTapped), for: .touchUpInside)
+        return button
+    }()
     
     private lazy var vStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel, usernameTextField, phoneNumberTextField, addredddTextField])
+        let stack = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel, registerButton])
         stack.axis = .vertical
-        stack.spacing = 10
+        stack.spacing = 20
+        stack.alignment = .center
 
         return stack
     }()
@@ -44,9 +51,26 @@ class AccountViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationController?.isNavigationBarHidden = true
+        navigationItem.backButtonDisplayMode = .minimal
         configUI()
     }
-    
+}
+
+ // MARK: - Actions
+extension AccountViewController {
+    @objc private func didRegisterTapped() {
+        let vc = RegisterViewController()
+        vc.hidesBottomBarWhenPushed = true
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .coverVertical
+        present(vc, animated: true)
+//        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+ // MARK: - ConfigUI
+
+extension AccountViewController {
     private func configUI() {
         view.addSubview(vStackView)
         makeConstraints()
@@ -54,9 +78,13 @@ class AccountViewController: UIViewController {
     
     private func makeConstraints() {
         vStackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(20)
-            make.left.right.equalToSuperview().inset(10)
+            make.center.equalToSuperview()
         }
+        
+        registerButton.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(30)
+            make.height.equalTo(50)
+        }
+        
     }
-
 }
