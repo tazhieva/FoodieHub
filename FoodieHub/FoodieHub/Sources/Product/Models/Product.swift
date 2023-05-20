@@ -13,9 +13,8 @@ struct Product {
     let image: String
     let description: String
     let category: String
-    let amount: Int? = 0
-    let availability: Bool
-    
+    var quantity: Int? = 0
+    var availability: Bool
 }
 
 struct MockData {
@@ -330,5 +329,4 @@ struct MockData {
                 availability: true)
     
     ]
-
 }

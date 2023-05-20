@@ -10,9 +10,9 @@ import SnapKit
 
 class CartViewController: UIViewController {
     
-    // MARK: - UI Elements
+    private var cartItems = [Product]()
     
-    private let imageLoader = ImageDownloader()
+    // MARK: - UI Elements
     
     private var tableView: UITableView = {
         let view = UITableView()
@@ -24,14 +24,12 @@ class CartViewController: UIViewController {
     }()
     
     private let containerView: UIView = {
-           let view = UIView()
-           return view
-       }()
-    
+        let view = UIView()
+        return view
+    }()
     
     private let payButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Перейти к оплате", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 12
@@ -46,11 +44,20 @@ class CartViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureTableView()
- 
+        cartItems = CartManager.shared.cartItems
     }
     
-    // MARK: - Configure TableView
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        cartItems = CartManager.shared.cartItems
+        payButton.setTitle("Перейти к оплате \(CartManager.shared.cartTotalPrice) ₸", for: .normal)
+        tableView.reloadData()
+    }
+}
+
+// MARK: - Configure TableView
+
+extension CartViewController {
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -85,7 +92,7 @@ class CartViewController: UIViewController {
 extension CartViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return cartItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,13 +100,7 @@ extension CartViewController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
-        imageLoader.downloadImage(from: MockData.products[indexPath.row].image) { [weak self] image in
-            DispatchQueue.main.async {
-                cell.productImage = image
-            }
-        }
-        
-        cell.configureLabels(product: MockData.products[indexPath.row])
+        cell.configureLabels(product: cartItems[indexPath.row])
         
         return cell
     }

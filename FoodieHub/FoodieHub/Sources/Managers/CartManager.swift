@@ -8,36 +8,43 @@
 import Foundation
 
 class CartManager {
-    var items = [Product]()
+    var cartItems = [Product]()
 
     static let shared = CartManager()
-    
-    var cartItems: [CartItem] = []
-    
-    func addToCart(product: Product) {
-        if let existingItemIndex = cartItems.firstIndex(where: { $0.product.name == product.name }) {
-            // Продукт уже есть в корзине, увеличиваем количество
-            var existingItem = cartItems[existingItemIndex]
-            existingItem.quantity += 1
-            cartItems[existingItemIndex] = existingItem
+
+    func addItem(_ item: Product) {
+        
+        if let index = cartItems.firstIndex(where: { (arrayItem) -> Bool in
+            return arrayItem.name == item.name
+        }) {
+            cartItems[index].quantity = cartItems[index].quantity! + 1
         } else {
-            // Продукта еще нет в корзине, добавляем новый элемент
-            let cartItem = CartItem(product: product, quantity: 1)
-            cartItems.append(cartItem)
+            var newItem = item
+            newItem.quantity = 1
+            cartItems.append(newItem)
         }
     }
-
-    func removeFromCart(product: Product) {
-        if let existingItemIndex = cartItems.firstIndex(where: { $0.product.name == product.name }) {
-            let existingItem = cartItems[existingItemIndex]
-            if existingItem.quantity > 1 {
-                // Уменьшаем количество
-                cartItems[existingItemIndex].quantity -= 1
+    
+    func removeItem(_ item: Product) {
+        
+        if let index = cartItems.firstIndex(where: { (arrayItem) -> Bool in
+            return arrayItem.name == item.name
+        }) {
+            if cartItems[index].quantity! > 1 {
+                cartItems[index].quantity = cartItems[index].quantity! - 1
             } else {
-                // Удаляем элемент из корзины
-                cartItems.remove(at: existingItemIndex)
+                cartItems.remove(at: index)
             }
         }
     }
+    
+    var totalItemsCount: Int {
+        return cartItems.count
+    }
+    
+    var cartTotalPrice: Int {
+        var total: Int = 0
+        cartItems.forEach{ total += $0.price * $0.quantity! }
+        return total
+    }
 }
-

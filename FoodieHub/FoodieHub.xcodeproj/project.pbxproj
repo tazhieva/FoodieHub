@@ -17,13 +17,15 @@
 		71161A372A15314900EBE988 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71161A362A15314900EBE988 /* SnapKit */; };
 		71161A3E2A15CDA600EBE988 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A3D2A15CDA600EBE988 /* Product.swift */; };
 		71161A442A16015400EBE988 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A432A16015400EBE988 /* AccountViewController.swift */; };
-		71161A462A165FEC00EBE988 /* CartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A452A165FEC00EBE988 /* CartButton.swift */; };
+		71161A462A165FEC00EBE988 /* AmountButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A452A165FEC00EBE988 /* AmountButtonView.swift */; };
 		71161A482A1667E400EBE988 /* CartViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A472A1667E400EBE988 /* CartViewCell.swift */; };
 		71161A4A2A167E5800EBE988 /* GHTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A492A167E5800EBE988 /* GHTextfield.swift */; };
 		71161A4D2A16911E00EBE988 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A4C2A16911E00EBE988 /* User.swift */; };
 		71161A522A174E4100EBE988 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A512A174E4100EBE988 /* ImageDownloader.swift */; };
 		71161A542A17940F00EBE988 /* CartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A532A17940F00EBE988 /* CartItem.swift */; };
 		71161A592A179DBB00EBE988 /* CartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A582A179DBB00EBE988 /* CartManager.swift */; };
+		71F60E9F2A187CB30000FEA5 /* AmountButtonViewItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F60E9E2A187CB30000FEA5 /* AmountButtonViewItems.swift */; };
+		71F60EA12A187CDF0000FEA5 /* CartButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F60EA02A187CDF0000FEA5 /* CartButtonType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,13 +40,15 @@
 		71161A332A152C9500EBE988 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		71161A3D2A15CDA600EBE988 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		71161A432A16015400EBE988 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
-		71161A452A165FEC00EBE988 /* CartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartButton.swift; sourceTree = "<group>"; };
+		71161A452A165FEC00EBE988 /* AmountButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountButtonView.swift; sourceTree = "<group>"; };
 		71161A472A1667E400EBE988 /* CartViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewCell.swift; sourceTree = "<group>"; };
 		71161A492A167E5800EBE988 /* GHTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHTextfield.swift; sourceTree = "<group>"; };
 		71161A4C2A16911E00EBE988 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		71161A512A174E4100EBE988 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		71161A532A17940F00EBE988 /* CartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItem.swift; sourceTree = "<group>"; };
 		71161A582A179DBB00EBE988 /* CartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartManager.swift; sourceTree = "<group>"; };
+		71F60E9E2A187CB30000FEA5 /* AmountButtonViewItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountButtonViewItems.swift; sourceTree = "<group>"; };
+		71F60EA02A187CDF0000FEA5 /* CartButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartButtonType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				71161A202A15289000EBE988 /* ProductViewCell.swift */,
-				71161A452A165FEC00EBE988 /* CartButton.swift */,
+				71F60E9D2A187BA40000FEA5 /* AmountButtonView */,
 				71161A492A167E5800EBE988 /* GHTextfield.swift */,
 			);
 			path = Views;
@@ -231,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				71161A532A17940F00EBE988 /* CartItem.swift */,
+				71F60EA02A187CDF0000FEA5 /* CartButtonType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -241,6 +246,15 @@
 				71161A582A179DBB00EBE988 /* CartManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		71F60E9D2A187BA40000FEA5 /* AmountButtonView */ = {
+			isa = PBXGroup;
+			children = (
+				71161A452A165FEC00EBE988 /* AmountButtonView.swift */,
+				71F60E9E2A187CB30000FEA5 /* AmountButtonViewItems.swift */,
+			);
+			path = AmountButtonView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,11 +340,13 @@
 				71161A232A1528A400EBE988 /* ProductListViewController.swift in Sources */,
 				71161A4A2A167E5800EBE988 /* GHTextfield.swift in Sources */,
 				71161A482A1667E400EBE988 /* CartViewCell.swift in Sources */,
+				71F60EA12A187CDF0000FEA5 /* CartButtonType.swift in Sources */,
 				71161A342A152C9500EBE988 /* TabBarViewController.swift in Sources */,
 				71161A0D2A1525F700EBE988 /* AppDelegate.swift in Sources */,
 				71161A592A179DBB00EBE988 /* CartManager.swift in Sources */,
 				71161A3E2A15CDA600EBE988 /* Product.swift in Sources */,
-				71161A462A165FEC00EBE988 /* CartButton.swift in Sources */,
+				71161A462A165FEC00EBE988 /* AmountButtonView.swift in Sources */,
+				71F60E9F2A187CB30000FEA5 /* AmountButtonViewItems.swift in Sources */,
 				71161A542A17940F00EBE988 /* CartItem.swift in Sources */,
 				71161A4D2A16911E00EBE988 /* User.swift in Sources */,
 			);

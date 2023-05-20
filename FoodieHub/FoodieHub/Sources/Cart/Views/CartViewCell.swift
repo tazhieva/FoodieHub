@@ -11,14 +11,9 @@ import SnapKit
 class CartViewCell: UITableViewCell {
     
     static let identifier = "CartViewCell"
-    
-    var productImage: UIImage? {
-        didSet {
-            guard let productImage = productImage else { return }
-            productImageView.image = productImage
-        }
-    }
-    
+        
+    private let imageLoader = ImageDownloader()
+        
     // MARK: - UI Elements
     
     private let productImageView: UIImageView = {
@@ -39,7 +34,7 @@ class CartViewCell: UITableViewCell {
         return label
     }()
     
-    private let cartButton = CartButton()
+    private let cartButton = AmountButtonView(type: .cart)
     
     private lazy var vStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [productTitleLabel, cartButton])
@@ -73,11 +68,34 @@ class CartViewCell: UITableViewCell {
 
 extension CartViewCell {
     func configureLabels(product: Product) {
+
         productTitleLabel.text = product.name
-        cartButton.amount = product.amount ?? 0
         cartButton.price = product.price
+        imageLoader.downloadImage(from: product.image) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.productImageView.image = image
+            }
+        }
+        
+        cartButton.amount = product.quantity
+        
+        cartButton.didPressOnButton = { [weak self] item in
+            switch item {
+            case .plus:
+                print("pressed plus")
+                CartManager.shared.addItem(product)
+                print(product.quantity)
+             
+            case .minus:
+                print("pressed minus")
+                CartManager.shared.removeItem(product)
+                print(product.quantity)
+    
+            }
+        }
     }
 }
+
 
 // MARK: - Configure UI
 

@@ -12,14 +12,9 @@ class ProductViewCell: UICollectionViewCell {
     
     static let identifier = "ProductViewCell"
     
-    // MARK: - UI Elements
+    private let imageLoader = ImageDownloader()
     
-    var productImage: UIImage? {
-        didSet {
-            guard let productImage = productImage else { return }
-            productImageView.image = productImage
-        }
-    }
+    // MARK: - UI Elements
     
     private let productImageView: UIImageView = {
         let view = UIImageView()
@@ -39,7 +34,7 @@ class ProductViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let cartButton = CartButton()
+    private let cartButton = AmountButtonView(type: .list)
     
     private lazy var productStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [productImageView, productTitleLabel, cartButton])
@@ -69,8 +64,30 @@ class ProductViewCell: UICollectionViewCell {
 extension ProductViewCell {
     func configureLabels(product: Product) {
          productTitleLabel.text = product.name
-         cartButton.amount = product.amount ?? 0
+         cartButton.amount = product.quantity ?? 0
          cartButton.price = product.price
+        
+        imageLoader.downloadImage(from: product.image) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.productImageView.image = image
+            }
+        }
+        
+        cartButton.didPressOnButton = { item in
+            switch item {
+            case .plus:
+                print("pressed plus")
+                CartManager.shared.addItem(product)
+                print(product.quantity)
+                print(self.cartButton.amount)
+            case .minus:
+                print("pressed minus")
+                CartManager.shared.removeItem(product)
+                print(product.quantity)
+                print(self.cartButton.amount)
+            }
+            print(CartManager.shared.totalItemsCount)
+        }
      }
 }
 

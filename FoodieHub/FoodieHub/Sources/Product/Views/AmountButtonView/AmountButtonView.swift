@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CartButton: UIView {
+class AmountButtonView: UIView {
     
     var price: Int? {
         didSet {
@@ -20,6 +20,9 @@ class CartButton: UIView {
             productAmount.text = "\(amount ?? 0)"
         }
     }
+    
+    var cartButtonType: CartButtonType
+    var didPressOnButton: ((AmountButtonViewItems) -> Void)?
     
     private let productCostLabel: UILabel = {
         let label = UILabel()
@@ -39,7 +42,6 @@ class CartButton: UIView {
     private let cartRemoveButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "minus"), for: .normal)
-        button.isHidden = true
         button.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -47,9 +49,8 @@ class CartButton: UIView {
     private let productAmount: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .bold)
-        label.numberOfLines = 0
+        label.textAlignment = .center
         label.text = "0"
-        label.isHidden = true
         return label
     }()
     
@@ -63,7 +64,8 @@ class CartButton: UIView {
         return stack
     }()
     
-    override init(frame: CGRect) {
+    init(type: CartButtonType) {
+        self.cartButtonType = type
         super.init(frame: .zero)
         configUI()
     }
@@ -74,7 +76,7 @@ class CartButton: UIView {
 }
 
 // MARK: - Actions
-extension CartButton {
+extension AmountButtonView {
     @objc private func addButtonTapped() {
         guard var currentAmount = amount, currentAmount >= 0 else {
             return
@@ -83,6 +85,8 @@ extension CartButton {
         currentAmount += 1
         amount = currentAmount
         updateUI()
+        
+        didPressOnButton?(AmountButtonViewItems.plus)
     }
     
     @objc private func removeButtonTapped() {
@@ -93,12 +97,13 @@ extension CartButton {
         currentAmount -= 1
         amount = currentAmount
         updateUI()
+        didPressOnButton?(AmountButtonViewItems.minus)
     }
 }
 
 // MARK: - Private Methods
 
-extension CartButton {
+extension AmountButtonView {
     private func updateUI() {
         if let currentAmount = amount {
             productAmount.text = "\(currentAmount)"
@@ -118,10 +123,23 @@ extension CartButton {
 
 // MARK: - Configure UI
 
-extension CartButton {
+extension AmountButtonView {
     private func configUI() {
         addSubview(hStack)
         makeConstraints()
+        
+        switch cartButtonType {
+        case .cart:
+            productCostLabel.isHidden = true
+            cartRemoveButton.isHidden = false
+            productAmount.isHidden = false
+            
+        case .list:
+            productCostLabel.isHidden = false
+            cartRemoveButton.isHidden = true
+            productAmount.isHidden = true
+            
+        }
     }
     
     private func makeConstraints() {
