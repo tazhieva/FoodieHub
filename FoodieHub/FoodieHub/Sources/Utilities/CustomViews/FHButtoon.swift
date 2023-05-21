@@ -9,7 +9,6 @@ import UIKit
 
 class FHButton: UIButton {
     
-    
     init(title: String?) {
         super.init(frame: .zero)
         configureButton()
@@ -24,10 +23,7 @@ class FHButton: UIButton {
         titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         setTitleColor(.white, for: .normal)
         layer.cornerRadius = 12
-        backgroundColor = UIColor(named: "mainColor")
-        
-        // Set title
-        
+        backgroundColor = UIColor(named: "mainColor")        
     }
 }
 

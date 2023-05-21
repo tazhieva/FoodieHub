@@ -59,12 +59,7 @@ class AccountViewController: UIViewController {
  // MARK: - Actions
 extension AccountViewController {
     @objc private func didRegisterTapped() {
-        let vc = RegisterViewController()
-        vc.hidesBottomBarWhenPushed = true
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .coverVertical
-        present(vc, animated: true)
-//        navigationController?.pushViewController(vc, animated: true)
+        openRegisterVC()
     }
 }
 
@@ -85,6 +80,5 @@ extension AccountViewController {
             make.left.right.equalToSuperview().inset(30)
             make.height.equalTo(50)
         }
-        
     }
 }

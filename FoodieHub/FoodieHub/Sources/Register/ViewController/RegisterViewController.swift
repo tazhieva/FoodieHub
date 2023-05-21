@@ -10,6 +10,21 @@ import SnapKit
 
 class RegisterViewController: UIViewController {
     
+    private let viewModel = RegisterViewModel()
+    
+    var userInfoUpdated: (() -> Void)?
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        return scrollView
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .semibold)
@@ -21,11 +36,19 @@ class RegisterViewController: UIViewController {
     private let subtitleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .regular)
-        label.text = "Подписка на еженедельную доставку свежих \nмолочных продуктов, сезонных овощей и \nфруктов🚚"
+        label.text = "Подписка на еженедельную доставку свежих молочных продуктов, сезонных овощей и фруктов🚚"
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         return label
+    }()
+    
+    private lazy var headerStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
+        stack.axis = .vertical
+        stack.spacing = 10
+        stack.alignment = .center
+        return stack
     }()
     
     private let usernamefield = FHTextfield(title: "Введите ваше имя")
@@ -48,7 +71,7 @@ class RegisterViewController: UIViewController {
         return button
     }()
     
-    fileprivate var dismissButton: UIButton = {
+    private var dismissButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
@@ -56,7 +79,7 @@ class RegisterViewController: UIViewController {
     }()
     
     private lazy var vStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [subtitleLabel, usernamefield, phoneNumber, addressField, deleveryTimeLabel, deliverySelectionView])
+        let stack = UIStackView(arrangedSubviews: [usernamefield, phoneNumber, addressField, deleveryTimeLabel, deliverySelectionView])
         stack.axis = .vertical
         stack.spacing = 10
         stack.alignment = .leading
@@ -75,35 +98,25 @@ class RegisterViewController: UIViewController {
 // MARK: - Actions
 
 extension RegisterViewController {
-    @objc private func saveButtonTapped() {
-        guard let usernameTrimmingText = usernamefield.text?.trimmingCharacters(in: .whitespaces),
-              let phoneNumberTrimmingText = phoneNumber.text?.trimmingCharacters(in: .whitespaces),
-              let addressTrimmingText = addressField.text?.trimmingCharacters(in: .whitespaces),
-              !usernameTrimmingText.isEmpty,
-              !phoneNumberTrimmingText.isEmpty,
-              !addressTrimmingText.isEmpty,
-              let pickedDay = deliverySelectionView.selectedDayOfWeek,
-              let pickedPeriod = deliverySelectionView.selectedDeliveryPeriod else {
-            return
-        }
-        
-        let userObject = User(username: usernameTrimmingText, phoneNumber: phoneNumberTrimmingText, address: addressTrimmingText, deliveryDay: pickedDay, deliveryPeriod: pickedPeriod)
-        
-        UserSettings.username = usernameTrimmingText
-        UserSettings.phoneNumber = phoneNumberTrimmingText
-        UserSettings.address = addressTrimmingText
-        UserSettings.pickedDay = pickedDay
-        UserSettings.pickedPeriod = pickedPeriod
-        
-        let alert = UIAlertController(title: "", message: "Ваши данные сохранились ✅", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Продолжить покупки", style: .default) { _ in
-            self.dismiss(animated: true)
-        })
-        self.present(alert, animated: true)
-    }
-
     @objc func dismissButtonTapped() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func saveButtonTapped() {
+        viewModel.username = usernamefield.text?.trimmingCharacters(in: .whitespaces) ?? ""
+        viewModel.phoneNumber = phoneNumber.text?.trimmingCharacters(in: .whitespaces) ?? ""
+        viewModel.address = addressField.text?.trimmingCharacters(in: .whitespaces) ?? ""
+        viewModel.pickedDay = deliverySelectionView.selectedDayOfWeek ?? ""
+        viewModel.pickedPeriod = deliverySelectionView.selectedDeliveryPeriod ?? ""
+        
+        viewModel.saveUserInfo()
+        
+        let alert = UIAlertController(title: "", message: "Ваши данные сохранились ✅", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Продолжить покупки", style: .default) { [weak self]  _ in
+            self?.dismiss(animated: true)
+        })
+        self.present(alert, animated: true)
+        userInfoUpdated?()
     }
 }
 
@@ -111,33 +124,44 @@ extension RegisterViewController {
 
 extension RegisterViewController {
     private func configUI() {
-        view.addSubview(dismissButton)
-        view.addSubview(titleLabel)
-        view.addSubview(vStackView)
-        view.addSubview(saveButton)
-        
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(dismissButton)
+        contentView.addSubview(headerStackView)
+        contentView.addSubview(vStackView)
+        contentView.addSubview(saveButton)
         makeConstraints()
     }
     
     private func makeConstraints() {
-        dismissButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.equalToSuperview().inset(30)
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
-            make.centerX.equalToSuperview()
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.width.equalTo(view)
+        }
+        
+        dismissButton.snp.makeConstraints { make in
+            make.top.equalTo(contentView.safeAreaLayoutGuide.snp.top)
+            make.left.equalToSuperview().inset(20)
+        }
+        
+        headerStackView.snp.makeConstraints { make in
+            make.top.equalTo(contentView.safeAreaLayoutGuide.snp.top).offset(30)
+            make.right.equalToSuperview().offset(-30)
+            make.left.equalToSuperview().offset(30)
         }
         
         vStackView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.left.equalToSuperview().inset(30)
-            make.right.equalToSuperview().inset(-30)
+            make.top.equalTo(headerStackView.snp.bottom).offset(10)
+            make.right.left.equalToSuperview().offset(30)
+            make.bottom.equalTo(saveButton.snp.top).offset(-20)
         }
         
         saveButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(30)
+            make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).inset(30)
             make.left.right.equalToSuperview().inset(30)
             make.height.equalTo(50)
         }
@@ -150,3 +174,4 @@ extension RegisterViewController {
         }
     }
 }
+

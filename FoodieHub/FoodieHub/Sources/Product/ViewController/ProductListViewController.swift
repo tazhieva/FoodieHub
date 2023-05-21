@@ -28,7 +28,6 @@ class ProductListViewController: UIViewController {
         navigationItem.backButtonDisplayMode = .minimal
         products = MockData.products
         configureCollectionView()
-        print(UserSettings.address)
     }
 }
 

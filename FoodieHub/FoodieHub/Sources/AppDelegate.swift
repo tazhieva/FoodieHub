@@ -39,4 +39,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "navbarBack")
     }
 }
-

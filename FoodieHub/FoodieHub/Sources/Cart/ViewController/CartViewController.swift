@@ -14,13 +14,6 @@ class CartViewController: UIViewController {
     
     // MARK: - UI Elements
     
-//    private let cartEmptyLabel: UILabel = {
-//        let label = UILabel
-//        label
-//        return label
-//    }()
-    
-    
     private var tableView: UITableView = {
         let view = UITableView()
         view.backgroundColor = .clear
@@ -46,6 +39,7 @@ class CartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        navigationItem.backButtonDisplayMode = .minimal
         configureTableView()
         cartItems = CartManager.shared.cartItems
     }
@@ -53,6 +47,7 @@ class CartViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         cartItems = CartManager.shared.cartItems
+        payButton.setTitle("Перейти к оплате \(CartManager.shared.cartTotalPrice) ₸", for: .normal)
         tableView.reloadData()
     }
 }
@@ -61,20 +56,21 @@ class CartViewController: UIViewController {
 
 extension CartViewController {
     @objc private func didPayButtonTapped() {
-        let alert = UIAlertController(title: "", message: "Чтобы оформить заказ, заполните ваши контактные данные", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Отменить", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Заполнить", style: .default) { _ in
-            let vc = RegisterViewController()
+        if let user = UserSettings.username {
+            let vc = OrderViewController()
+            vc.title = "Оформление заказа"
             vc.hidesBottomBarWhenPushed = true
-            vc.modalPresentationStyle = .fullScreen
-            vc.modalTransitionStyle = .coverVertical
-            self.present(vc, animated: true)
-        })
-        self.present(alert, animated: true)
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let alert = UIAlertController(title: "", message: "Чтобы оформить заказ, заполните ваши контактные данные", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Отменить", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Заполнить", style: .default) {[ weak self]_ in
+                self?.openRegisterVC()
+            })
+            self.present(alert, animated: true)
+        }
     }
-
 }
-
 
 // MARK: - Configure TableView
 
@@ -103,7 +99,6 @@ extension CartViewController {
             make.left.right.equalToSuperview().inset(30)
             make.height.equalTo(50)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
-            
         }
     }
 }
