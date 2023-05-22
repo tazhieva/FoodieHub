@@ -58,16 +58,16 @@ class OrderViewController: UIViewController {
         return stack
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         navigationItem.backButtonDisplayMode = .minimal
         configUI()
     }
-    
-    // MARK: - Actions
-    
+}
+
+// MARK: - Actions
+extension OrderViewController {
     @objc private func editButtonTapped() {
         let vc = RegisterViewController()
         vc.title = "Заполните информацию"
@@ -79,9 +79,11 @@ class OrderViewController: UIViewController {
         }
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    // MARK: - ConfigUI
-    
+}
+
+// MARK: - ConfigUI
+
+extension OrderViewController {
     private func configUI() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)

@@ -23,15 +23,31 @@ class CartViewController: UIViewController {
         return view
     }()
     
-    private let containerView: UIView = {
-        let view = UIView()
-        return view
-    }()
+    private let containerView = UIView()
     
     private let payButton: FHButton = {
-        let button = FHButton(title: "Перейти к оплате \(CartManager.shared.cartTotalPrice) ₸")
+        let button = FHButton()
         button.addTarget(self, action: #selector(didPayButtonTapped), for: .touchUpInside)
         return button
+    }()
+    
+    private let emptyCartContainerView =  UIView()
+    
+    private let emptyCartLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        label.textColor = .gray
+        label.text = "Ваша корзина пуста"
+        return label
+    }()
+    
+    private let emptyCartSymbolImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = UIColor(named: "mainColor")
+        imageView.image = UIImage(systemName: "cart.badge.plus")
+        return imageView
     }()
     
     // MARK: - LifeCycle
@@ -42,6 +58,7 @@ class CartViewController: UIViewController {
         navigationItem.backButtonDisplayMode = .minimal
         configureTableView()
         cartItems = CartManager.shared.cartItems
+        updateEmptyCartViewVisibility()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,13 +66,14 @@ class CartViewController: UIViewController {
         cartItems = CartManager.shared.cartItems
         payButton.setTitle("Перейти к оплате \(CartManager.shared.cartTotalPrice) ₸", for: .normal)
         tableView.reloadData()
-        print("CART ITEMS - \(cartItems)")
+        updateEmptyCartViewVisibility()
     }
 }
 
 // MARK: - Actions
 
 extension CartViewController {
+    
     @objc private func didPayButtonTapped() {
         if let user = UserSettings.username {
             let vc = OrderViewController()
@@ -63,13 +81,24 @@ extension CartViewController {
             vc.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(vc, animated: true)
         } else {
-            let alert = UIAlertController(title: "", message: "Чтобы оформить заказ, заполните ваши контактные данные", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Отменить", style: .cancel))
-            alert.addAction(UIAlertAction(title: "Заполнить", style: .default) {[ weak self]_ in
+            showAlert(title: "", message: "Чтобы оформить заказ, заполните ваши контактные данные", cancelActionTitle: "Отменить", defaultActionTitle: "Заполнить") { [weak self] in
                 let vc = RegisterViewController()
                 self?.navigationController?.pushViewController(vc, animated: true)
-            })
-            self.present(alert, animated: true)
+            }
+        }
+    }
+}
+
+// MARK: - Methods
+
+extension CartViewController {
+    private func updateEmptyCartViewVisibility() {
+        if cartItems.isEmpty {
+            emptyCartContainerView.isHidden = false
+            containerView.isHidden = true
+        } else {
+            emptyCartContainerView.isHidden = true
+            containerView.isHidden = false
         }
     }
 }
@@ -83,6 +112,9 @@ extension CartViewController {
         view.addSubview(containerView)
         containerView.addSubview(tableView)
         containerView.addSubview(payButton)
+        view.addSubview(emptyCartContainerView)
+        emptyCartContainerView.addSubview(emptyCartLabel)
+        emptyCartContainerView.addSubview(emptyCartSymbolImageView)
         
         makeConstraints()
     }
@@ -101,6 +133,21 @@ extension CartViewController {
             make.left.right.equalToSuperview().inset(30)
             make.height.equalTo(50)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
+        }
+        
+        emptyCartContainerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        emptyCartLabel.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        
+        emptyCartSymbolImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(emptyCartLabel.snp.top).offset(-16)
+            make.width.equalTo(80)
+            make.height.equalTo(80)
         }
     }
 }

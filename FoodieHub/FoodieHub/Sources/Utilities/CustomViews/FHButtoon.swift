@@ -9,7 +9,7 @@ import UIKit
 
 class FHButton: UIButton {
     
-    init(title: String?) {
+    init(title: String? = "") {
         super.init(frame: .zero)
         configureButton()
         setTitle(title, for: .normal)
@@ -27,3 +27,11 @@ class FHButton: UIButton {
     }
 }
 
+//MARK: - Methods
+extension FHButton {
+    func setDisabled(_ disabled: Bool = true) {
+        isUserInteractionEnabled = !disabled
+        
+        backgroundColor = disabled ? UIColor(named: "disabledColor") : UIColor(named: "mainColor")
+    }
+}

@@ -18,4 +18,18 @@ extension UIViewController {
             UIView.transition(with: window, duration: duration, options: options, animations: {}, completion: nil)
         }
     }
+    
+    func showAlert(title: String, message: String, cancelActionTitle: String, defaultActionTitle: String, defaultActionHandler: (() -> Void)?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: cancelActionTitle, style: .cancel)
+        alert.addAction(cancelAction)
+        
+        let defaultAction = UIAlertAction(title: defaultActionTitle, style: .default) { _ in
+            defaultActionHandler?()
+        }
+        alert.addAction(defaultAction)
+        
+        present(alert, animated: true)
+    }
 }

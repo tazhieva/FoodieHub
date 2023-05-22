@@ -51,7 +51,6 @@ class CartViewCell: UITableViewCell {
         return stack
     }()
     
-    
     // MARK: - LifeCycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -90,7 +89,6 @@ extension CartViewCell {
         }
     }
 }
-
 
 // MARK: - Configure UI
 

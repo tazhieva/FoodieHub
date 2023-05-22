@@ -74,4 +74,3 @@ extension ProductListViewController: UICollectionViewDataSource, UICollectionVie
         return CGSize(width: width, height: height)
     }
 }
-

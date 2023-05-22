@@ -63,7 +63,6 @@ extension RegisteredAccountViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(editButtonTapped))
     }
     
-    
     private func makeConstrainsts() {
         vStackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)

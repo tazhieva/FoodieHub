@@ -20,7 +20,7 @@ class RegisterViewController: UIViewController {
         return scrollView
     }()
     
-    private let contentView: UIView = {
+    private let scrollContentView: UIView = {
         let view = UIView()
         return view
     }()
@@ -70,7 +70,7 @@ class RegisterViewController: UIViewController {
         stack.axis = .vertical
         stack.spacing = 10
         stack.alignment = .leading
-        stack.setCustomSpacing(10, after: subscriptionPeriodView)
+        stack.setCustomSpacing(20, after: subscriptionPeriodView)
         stack.setCustomSpacing(-10, after: deleveryTimeLabel)
         return stack
     }()
@@ -110,10 +110,11 @@ extension RegisterViewController {
 extension RegisterViewController {
     private func configUI() {
         view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(vStackView)
-        contentView.addSubview(saveButton)
+        scrollView.addSubview(scrollContentView)
+        scrollContentView.addSubview(titleLabel)
+        scrollContentView.addSubview(vStackView)
+        scrollContentView.addSubview(saveButton)
+        
         makeConstraints()
     }
     
@@ -122,13 +123,13 @@ extension RegisterViewController {
             make.edges.equalToSuperview()
         }
         
-        contentView.snp.makeConstraints { make in
+        scrollContentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalTo(view)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(scrollContentView.safeAreaLayoutGuide.snp.top).inset(10)
             make.right.equalToSuperview().offset(-20)
             make.left.equalToSuperview().offset(20)
         }
@@ -140,7 +141,7 @@ extension RegisterViewController {
         }
         
         saveButton.snp.makeConstraints { make in
-            make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).inset(20)
+            make.bottom.equalTo(scrollContentView.safeAreaLayoutGuide.snp.bottom).offset(20)
             make.left.right.equalToSuperview().inset(30)
             make.height.equalTo(50)
         }
@@ -153,4 +154,3 @@ extension RegisterViewController {
         }
     }
 }
-
