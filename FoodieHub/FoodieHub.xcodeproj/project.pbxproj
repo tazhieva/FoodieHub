@@ -126,7 +126,6 @@
 			isa = PBXGroup;
 			children = (
 				71161A202A15289000EBE988 /* ProductViewCell.swift */,
-				71F60E9D2A187BA40000FEA5 /* AmountButtonView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -331,6 +330,7 @@
 		71F60EA62A189C6A0000FEA5 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				71F60E9D2A187BA40000FEA5 /* AmountButtonView */,
 				71161A492A167E5800EBE988 /* GHTextfield.swift */,
 				71F60EAB2A18A6320000FEA5 /* DeliverySelectionView.swift */,
 				71F60EA72A189C860000FEA5 /* FHButtoon.swift */,

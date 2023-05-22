@@ -34,8 +34,6 @@ class RegisteredAccountViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         navigationItem.backButtonDisplayMode = .minimal
-        
-        
     }
 }
 

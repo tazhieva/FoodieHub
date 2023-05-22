@@ -98,7 +98,7 @@ extension RegisterViewController {
         
         let alert = UIAlertController(title: "", message: "Ваши данные сохранились ✅", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Продолжить покупки", style: .default) { [weak self]  _ in
-            self?.navigationController?.popViewController(animated: true)
+            self?.openMain()
         })
         self.present(alert, animated: true)
         userInfoUpdated?()

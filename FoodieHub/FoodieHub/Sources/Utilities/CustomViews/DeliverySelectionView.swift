@@ -17,8 +17,8 @@ class DeliverySelectionView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
         return picker
     }()
     
-    var selectedDayOfWeek: String?
-    var selectedDeliveryPeriod: String?
+    var selectedDayOfWeek: String? = "Понедельник"
+    var selectedDeliveryPeriod: String? = "09:00-11:00"
     
     override init(frame: CGRect) {
         super.init(frame: frame)
