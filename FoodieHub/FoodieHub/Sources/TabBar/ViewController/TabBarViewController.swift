@@ -8,7 +8,7 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -21,7 +21,7 @@ class TabBarViewController: UITabBarController {
         viewControllers = [
             createNavController(for: ProductListViewController(), title: NSLocalizedString("Главная", comment: ""), image: UIImage(systemName: "house")!),
             createNavController(for: CartViewController(), title: NSLocalizedString("Корзина", comment: ""), image: UIImage(systemName: "bag")!),
-            createNavController(for: AccountViewController(), title: NSLocalizedString("Аккаунт", comment: ""), image: UIImage(systemName: "carrot")!)
+            createNavController(for: isRegiteredAccount(), title: NSLocalizedString("Аккаунт", comment: ""), image: UIImage(systemName: "carrot")!)
         ]
     }
     
@@ -34,5 +34,13 @@ class TabBarViewController: UITabBarController {
         
         return navController
     }
-   
+    
+    func isRegiteredAccount() -> UIViewController {
+        if let account = UserSettings.username {
+            return RegisteredAccountViewController()
+        }
+        return AccountViewController()
+    }
+    
+    
 }

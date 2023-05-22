@@ -26,6 +26,9 @@
 		71161A592A179DBB00EBE988 /* CartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71161A582A179DBB00EBE988 /* CartManager.swift */; };
 		71A0C86F2A19C725008458AC /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A0C86E2A19C725008458AC /* UIViewController+Extension.swift */; };
 		71A0C8722A19CCED008458AC /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A0C8712A19CCED008458AC /* RegisterViewModel.swift */; };
+		71A0C8742A19F200008458AC /* SubscriptionPeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A0C8732A19F200008458AC /* SubscriptionPeriodView.swift */; };
+		71A0C8762A19FDC8008458AC /* RegisteredAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A0C8752A19FDC8008458AC /* RegisteredAccountViewController.swift */; };
+		71A0C8792A1A039A008458AC /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A0C8782A1A039A008458AC /* AccountInfoView.swift */; };
 		71F60E9F2A187CB30000FEA5 /* AmountButtonViewItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F60E9E2A187CB30000FEA5 /* AmountButtonViewItems.swift */; };
 		71F60EA12A187CDF0000FEA5 /* CartButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F60EA02A187CDF0000FEA5 /* CartButtonType.swift */; };
 		71F60EA52A1889910000FEA5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F60EA42A1889910000FEA5 /* RegisterViewController.swift */; };
@@ -58,6 +61,9 @@
 		71161A582A179DBB00EBE988 /* CartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartManager.swift; sourceTree = "<group>"; };
 		71A0C86E2A19C725008458AC /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		71A0C8712A19CCED008458AC /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		71A0C8732A19F200008458AC /* SubscriptionPeriodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPeriodView.swift; sourceTree = "<group>"; };
+		71A0C8752A19FDC8008458AC /* RegisteredAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredAccountViewController.swift; sourceTree = "<group>"; };
+		71A0C8782A1A039A008458AC /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
 		71F60E9E2A187CB30000FEA5 /* AmountButtonViewItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountButtonViewItems.swift; sourceTree = "<group>"; };
 		71F60EA02A187CDF0000FEA5 /* CartButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartButtonType.swift; sourceTree = "<group>"; };
 		71F60EA42A1889910000FEA5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -136,12 +142,12 @@
 		71161A292A1528F400EBE988 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				71F60EAF2A18DD2F0000FEA5 /* Order */,
 				71161A0C2A1525F700EBE988 /* AppDelegate.swift */,
 				71161A502A174E2E00EBE988 /* Utilities */,
 				71161A562A179D8E00EBE988 /* Managers */,
 				71F60EA22A1889680000FEA5 /* Register */,
 				71161A412A16011300EBE988 /* Account */,
+				71F60EAF2A18DD2F0000FEA5 /* Order */,
 				71161A2C2A152C1900EBE988 /* Cart */,
 				71161A312A152C6D00EBE988 /* TabBar */,
 				71161A262A1528CC00EBE988 /* Product */,
@@ -220,6 +226,7 @@
 		71161A412A16011300EBE988 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				71A0C8772A1A037D008458AC /* Views */,
 				71161A4B2A16910800EBE988 /* Model */,
 				71161A422A16013C00EBE988 /* ViewController */,
 			);
@@ -230,6 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				71161A432A16015400EBE988 /* AccountViewController.swift */,
+				71A0C8752A19FDC8008458AC /* RegisteredAccountViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -286,6 +294,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		71A0C8772A1A037D008458AC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				71A0C8782A1A039A008458AC /* AccountInfoView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		71F60E9D2A187BA40000FEA5 /* AmountButtonView */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,6 +334,7 @@
 				71161A492A167E5800EBE988 /* GHTextfield.swift */,
 				71F60EAB2A18A6320000FEA5 /* DeliverySelectionView.swift */,
 				71F60EA72A189C860000FEA5 /* FHButtoon.swift */,
+				71A0C8732A19F200008458AC /* SubscriptionPeriodView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -436,10 +453,13 @@
 				71F60EB62A18E52B0000FEA5 /* OrderPriceView.swift in Sources */,
 				71F60EB42A18E0C70000FEA5 /* ConfirmationInfoView.swift in Sources */,
 				71161A462A165FEC00EBE988 /* AmountButtonView.swift in Sources */,
+				71A0C8792A1A039A008458AC /* AccountInfoView.swift in Sources */,
 				71F60EA52A1889910000FEA5 /* RegisterViewController.swift in Sources */,
 				71F60EB22A18DD690000FEA5 /* OrderViewController.swift in Sources */,
 				71F60E9F2A187CB30000FEA5 /* AmountButtonViewItems.swift in Sources */,
 				71161A542A17940F00EBE988 /* CartItem.swift in Sources */,
+				71A0C8742A19F200008458AC /* SubscriptionPeriodView.swift in Sources */,
+				71A0C8762A19FDC8008458AC /* RegisteredAccountViewController.swift in Sources */,
 				71161A4D2A16911E00EBE988 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

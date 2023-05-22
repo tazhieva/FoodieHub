@@ -59,13 +59,13 @@ class ProductViewCell: UICollectionViewCell {
     }
 }
 
- // MARK: - Configure Labels
+// MARK: - Configure Labels
 
 extension ProductViewCell {
     func configureLabels(product: Product) {
-         productTitleLabel.text = product.name
-         cartButton.amount = product.quantity ?? 0
-         cartButton.price = product.price
+        productTitleLabel.text = product.name
+        cartButton.amount = product.quantity ?? 0
+        cartButton.price = product.price
         
         imageLoader.downloadImage(from: product.image) { [weak self] image in
             DispatchQueue.main.async {
@@ -76,19 +76,12 @@ extension ProductViewCell {
         cartButton.didPressOnButton = { item in
             switch item {
             case .plus:
-                print("pressed plus")
                 CartManager.shared.addItem(product)
-                print(product.quantity)
-                print(self.cartButton.amount)
             case .minus:
-                print("pressed minus")
                 CartManager.shared.removeItem(product)
-                print(product.quantity)
-                print(self.cartButton.amount)
             }
-            print(CartManager.shared.totalItemsCount)
         }
-     }
+    }
 }
 
 // MARK: - Configure UI

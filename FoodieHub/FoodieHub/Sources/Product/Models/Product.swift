@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Product {
+struct Product: Codable {
     let name: String
     let price: Int
     let image: String
     let description: String
     let category: String
-    var quantity: Int? = 0
+    var quantity: Int?
     var availability: Bool
 }
 
@@ -327,6 +327,5 @@ struct MockData {
                 description: "Безалкогольный натуральный напиток с нежным вкусом для любителей лаванды, ягод и цветов. Лёгкая горчинка утолит жажду и придаст бодрости на весь день. Совместили всё, что вы любите, чтобы коктейли получались ароматными и насыщенными. Состав: подготовленная вода, концентрированный сок малины (5 %), концентрированный сок черной смородины (5 %), сахар, лимонная кислота, СО2 экстракты (роза, лаванда), хинин. ",
                 category: "Напитки",
                 availability: true)
-    
     ]
 }

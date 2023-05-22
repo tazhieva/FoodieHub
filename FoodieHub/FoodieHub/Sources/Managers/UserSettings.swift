@@ -14,6 +14,7 @@ class UserSettings {
         case address
         case pickedDay
         case pickedPeriod
+        case subscriptionPeriod
     }
     
     static var username: String? {
@@ -24,7 +25,6 @@ class UserSettings {
             let defaults = UserDefaults.standard
             let key = SettingsKey.username.rawValue
             if let name = newValue {
-                print("Value: \(name) was added to key \(key)")
                 defaults.set(name, forKey: key)
             } else {
                 defaults.removeObject(forKey: key)
@@ -40,7 +40,6 @@ class UserSettings {
             let defaults = UserDefaults.standard
             let key = SettingsKey.phoneNumber.rawValue
             if let phoneNumber = newValue {
-                print("Value: \(phoneNumber) was added to key \(key)")
                 defaults.set(phoneNumber, forKey: key)
             } else {
                 defaults.removeObject(forKey: key)
@@ -56,7 +55,6 @@ class UserSettings {
             let defaults = UserDefaults.standard
             let key = SettingsKey.address.rawValue
             if let address = newValue {
-                print("Value: \(address) was added to key \(key)")
                 defaults.set(address, forKey: key)
             } else {
                 defaults.removeObject(forKey: key)
@@ -72,7 +70,6 @@ class UserSettings {
             let defaults = UserDefaults.standard
             let key = SettingsKey.pickedDay.rawValue
             if let day = newValue {
-                print("Value: \(day) was added to key \(key)")
                 defaults.set(day, forKey: key)
             } else {
                 defaults.removeObject(forKey: key)
@@ -88,7 +85,21 @@ class UserSettings {
             let defaults = UserDefaults.standard
             let key = SettingsKey.pickedPeriod.rawValue
             if let period = newValue {
-                print("Value: \(period) was added to key \(key)")
+                defaults.set(period, forKey: key)
+            } else {
+                defaults.removeObject(forKey: key)
+            }
+        }
+    }
+    
+    static var subscriptionPeriod: String? {
+        get {
+            return UserDefaults.standard.string(forKey: SettingsKey.subscriptionPeriod.rawValue)
+        }
+        set {
+            let defaults = UserDefaults.standard
+            let key = SettingsKey.subscriptionPeriod.rawValue
+            if let period = newValue {
                 defaults.set(period, forKey: key)
             } else {
                 defaults.removeObject(forKey: key)

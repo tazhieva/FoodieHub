@@ -31,7 +31,7 @@ class ProductListViewController: UIViewController {
     }
 }
 
- // MARK: - ConfigUI
+// MARK: - ConfigUI
 
 extension ProductListViewController {
     private func configureCollectionView() {
@@ -52,7 +52,7 @@ extension ProductListViewController {
     }
 }
 
- // MARK: - UICollectionView
+// MARK: - UICollectionView
 
 extension ProductListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

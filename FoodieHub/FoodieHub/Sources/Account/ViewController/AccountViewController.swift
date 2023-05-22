@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class AccountViewController: UIViewController {
-        
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .semibold)
@@ -43,27 +43,29 @@ class AccountViewController: UIViewController {
         stack.axis = .vertical
         stack.spacing = 20
         stack.alignment = .center
-
+        
         return stack
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationController?.isNavigationBarHidden = true
         navigationItem.backButtonDisplayMode = .minimal
         configUI()
     }
 }
 
- // MARK: - Actions
+// MARK: - Actions
 extension AccountViewController {
     @objc private func didRegisterTapped() {
-        openRegisterVC()
+        let vc = RegisterViewController()
+        vc.title = "Заполните информацию"
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
- // MARK: - ConfigUI
+// MARK: - ConfigUI
 
 extension AccountViewController {
     private func configUI() {

@@ -47,7 +47,7 @@ class OrderPriceView: UIView {
     }
 }
 
- // MARK: - ConfigUI
+// MARK: - ConfigUI
 
 extension OrderPriceView {
     private func configUI() {

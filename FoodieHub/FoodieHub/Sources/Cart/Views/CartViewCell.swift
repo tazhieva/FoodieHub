@@ -11,9 +11,9 @@ import SnapKit
 class CartViewCell: UITableViewCell {
     
     static let identifier = "CartViewCell"
-        
+    
     private let imageLoader = ImageDownloader()
-        
+    
     // MARK: - UI Elements
     
     private let productImageView: UIImageView = {
@@ -51,7 +51,7 @@ class CartViewCell: UITableViewCell {
         return stack
     }()
     
-
+    
     // MARK: - LifeCycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -64,11 +64,11 @@ class CartViewCell: UITableViewCell {
     }
 }
 
- // MARK: - Configure Labels
+// MARK: - Configure Labels
 
 extension CartViewCell {
     func configureLabels(product: Product) {
-
+        
         productTitleLabel.text = product.name
         cartButton.price = product.price
         imageLoader.downloadImage(from: product.image) { [weak self] image in
@@ -82,15 +82,10 @@ extension CartViewCell {
         cartButton.didPressOnButton = { [weak self] item in
             switch item {
             case .plus:
-                print("pressed plus")
                 CartManager.shared.addItem(product)
-                print(product.quantity)
-             
+                
             case .minus:
-                print("pressed minus")
                 CartManager.shared.removeItem(product)
-                print(product.quantity)
-    
             }
         }
     }
@@ -119,7 +114,7 @@ extension CartViewCell {
         
         vStackView.snp.makeConstraints { make in
             make.centerY.equalTo(productImageView.snp.centerY)
-
+            
         }
     }
 }

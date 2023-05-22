@@ -1,14 +1,14 @@
 //
-//  ConfirmationInfoView.swift
+//  AccountInfoView.swift
 //  FoodieHub
 //
-//  Created by Акмарал Тажиева on 20.05.2023.
+//  Created by Акмарал Тажиева on 21.05.2023.
 //
 
 import UIKit
 import SnapKit
 
-class ConfirmationInfoView: UIView {
+class AccountInfoView: UIView {
     
     var userInfoLabel: String?  {
         didSet {
@@ -51,7 +51,7 @@ class ConfirmationInfoView: UIView {
 
 // MARK: - ConfigUI
 
-extension ConfirmationInfoView {
+extension AccountInfoView {
     private func configUI() {
         addSubview(vStackView)
         makeConstraints()
@@ -65,3 +65,4 @@ extension ConfirmationInfoView {
         }
     }
 }
+

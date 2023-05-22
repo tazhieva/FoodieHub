@@ -62,6 +62,7 @@ class OrderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        navigationItem.backButtonDisplayMode = .minimal
         configUI()
     }
     
@@ -69,16 +70,14 @@ class OrderViewController: UIViewController {
     
     @objc private func editButtonTapped() {
         let vc = RegisterViewController()
-        vc.hidesBottomBarWhenPushed = true
+        vc.title = "Заполните информацию"
         vc.userInfoUpdated = { [weak self] in
             self?.usernameView.userInfoLabel = UserSettings.username
             self?.addressView.userInfoLabel = UserSettings.address
             self?.phoneNumberView.userInfoLabel = UserSettings.phoneNumber
             self?.deliveryTimeView.userInfoLabel = "\(UserSettings.pickedDay ?? "Четверг"), \(UserSettings.pickedPeriod ?? "13:00-15:00")"
         }
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .coverVertical
-        present(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - ConfigUI
@@ -124,7 +123,7 @@ class OrderViewController: UIViewController {
         bottomStackView.snp.makeConstraints { make in
             make.top.equalTo(infoStackView.snp.bottom).offset(20)
             make.left.right.equalToSuperview()
-            make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-10) // Set the bottom constraint to the bottom of the contentView
+            make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-10)
             make.height.equalTo(200)
         }
     }

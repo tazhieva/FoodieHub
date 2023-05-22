@@ -49,6 +49,7 @@ class CartViewController: UIViewController {
         cartItems = CartManager.shared.cartItems
         payButton.setTitle("Перейти к оплате \(CartManager.shared.cartTotalPrice) ₸", for: .normal)
         tableView.reloadData()
+        print("CART ITEMS - \(cartItems)")
     }
 }
 
@@ -65,7 +66,8 @@ extension CartViewController {
             let alert = UIAlertController(title: "", message: "Чтобы оформить заказ, заполните ваши контактные данные", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Отменить", style: .cancel))
             alert.addAction(UIAlertAction(title: "Заполнить", style: .default) {[ weak self]_ in
-                self?.openRegisterVC()
+                let vc = RegisterViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
             })
             self.present(alert, animated: true)
         }

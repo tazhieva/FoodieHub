@@ -7,12 +7,4 @@
 
 import UIKit
 
-extension UIViewController {
-    func openRegisterVC() {
-        let vc = RegisterViewController()
-        vc.hidesBottomBarWhenPushed = true
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .coverVertical
-        present(vc, animated: true)
-    }
-}
+
