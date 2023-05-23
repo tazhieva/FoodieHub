@@ -18,17 +18,17 @@ class AmountButtonView: UIView {
     var amount: Int? {
         didSet {
             productAmount.text = "\(amount ?? 0)"
+            updateUI()
         }
     }
     
     var cartButtonType: CartButtonType
-    var didPressOnButton: ((AmountButtonViewItems) -> Void)?
+    var didPressOnButton: ((AmountButtonOperations) -> Void)?
     
     private let productCostLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .bold)
         label.numberOfLines = 0
-        label.text = "1 260 ₸/кг"
         return label
     }()
     
@@ -50,7 +50,6 @@ class AmountButtonView: UIView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .bold)
         label.textAlignment = .center
-        label.text = "0"
         return label
     }()
     
@@ -86,7 +85,7 @@ extension AmountButtonView {
         amount = currentAmount
         updateUI()
         
-        didPressOnButton?(AmountButtonViewItems.plus)
+        didPressOnButton?(.plus)
     }
     
     @objc private func removeButtonTapped() {
@@ -97,7 +96,7 @@ extension AmountButtonView {
         currentAmount -= 1
         amount = currentAmount
         updateUI()
-        didPressOnButton?(AmountButtonViewItems.minus)
+        didPressOnButton?(.minus)
     }
 }
 
@@ -138,7 +137,6 @@ extension AmountButtonView {
             productCostLabel.isHidden = false
             cartRemoveButton.isHidden = true
             productAmount.isHidden = true
-            
         }
     }
     

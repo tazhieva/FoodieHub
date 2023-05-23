@@ -168,7 +168,6 @@ extension RegisterViewController {
         let isAddressValid = !(addressField.text?.isEmpty ?? true)
 
         saveButton.setDisabled(!(isUsernameValid && isPhoneNumberValid && isAddressValid))
-
     }
 }
 

@@ -31,6 +31,33 @@ class CartViewController: UIViewController {
         return button
     }()
     
+    fileprivate let attentionImage: UIImageView = {
+        let view = UIImageView(image: UIImage(systemName: "exclamationmark.triangle"))
+        view.frame.size = CGSize(width: 20, height: 20)
+        view.tintColor = .lightGray
+        view.contentMode = .left
+        return view
+    }()
+    
+    fileprivate var infoLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.text = "Обращаем Ваше внимание, что вес у крупных овощей и фруктов может быть разным."
+        label.numberOfLines = 0
+        label.textColor = .lightGray
+        return label
+    }()
+    
+    private lazy var infoStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [attentionImage, infoLabel])
+        stack.axis = .horizontal
+        stack.alignment = .fill
+        stack.distribution = .fill
+        stack.spacing = 20
+        return stack
+    }()
+    
+    
     private let emptyCartContainerView =  UIView()
     
     private let emptyCartLabel: UILabel = {
@@ -57,16 +84,12 @@ class CartViewController: UIViewController {
         view.backgroundColor = .systemBackground
         navigationItem.backButtonDisplayMode = .minimal
         configureTableView()
-        cartItems = CartManager.shared.cartItems
-        updateEmptyCartViewVisibility()
+        updateUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        cartItems = CartManager.shared.cartItems
-        payButton.setTitle("Перейти к оплате \(CartManager.shared.cartTotalPrice) ₸", for: .normal)
-        tableView.reloadData()
-        updateEmptyCartViewVisibility()
+        updateUI()
     }
 }
 
@@ -83,6 +106,7 @@ extension CartViewController {
         } else {
             showAlert(title: "", message: "Чтобы оформить заказ, заполните ваши контактные данные", cancelActionTitle: "Отменить", defaultActionTitle: "Заполнить") { [weak self] in
                 let vc = RegisterViewController()
+                vc.hidesBottomBarWhenPushed = true
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -92,6 +116,13 @@ extension CartViewController {
 // MARK: - Methods
 
 extension CartViewController {
+    private func updateUI() {
+        cartItems = CartManager.shared.cartItems
+        updateEmptyCartViewVisibility()
+        payButton.setTitle("Перейти к оплате \(CartManager.shared.cartTotalPrice)  ₸", for: .normal)
+        tableView.reloadData()
+    }
+    
     private func updateEmptyCartViewVisibility() {
         if cartItems.isEmpty {
             emptyCartContainerView.isHidden = false
@@ -111,6 +142,7 @@ extension CartViewController {
         tableView.dataSource = self
         view.addSubview(containerView)
         containerView.addSubview(tableView)
+        containerView.addSubview(infoStackView)
         containerView.addSubview(payButton)
         view.addSubview(emptyCartContainerView)
         emptyCartContainerView.addSubview(emptyCartLabel)
@@ -128,8 +160,13 @@ extension CartViewController {
             make.top.left.right.equalToSuperview()
         }
         
-        payButton.snp.makeConstraints { make in
+        infoStackView.snp.makeConstraints { make in
             make.top.equalTo(tableView.snp.bottom).offset(20)
+            make.left.right.equalToSuperview().inset(30)
+        }
+        
+        payButton.snp.makeConstraints { make in
+            make.top.equalTo(infoStackView.snp.bottom).offset(20)
             make.left.right.equalToSuperview().inset(30)
             make.height.equalTo(50)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
@@ -166,6 +203,11 @@ extension CartViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.configureLabels(product: cartItems[indexPath.row])
+        
+        cell.updateItemsInCart = { [weak self] in
+            guard let self = self else { return }
+            updateUI()
+        }
         
         return cell
     }

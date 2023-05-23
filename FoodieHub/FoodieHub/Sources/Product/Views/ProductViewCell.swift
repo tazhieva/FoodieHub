@@ -14,6 +14,8 @@ class ProductViewCell: UICollectionViewCell {
     
     private let imageLoader = ImageDownloader()
     
+    var outOfStock: ((Product) -> ())?
+    
     // MARK: - UI Elements
     
     private let productImageView: UIImageView = {
@@ -73,10 +75,17 @@ extension ProductViewCell {
             }
         }
         
-        cartButton.didPressOnButton = { item in
-            switch item {
+        cartButton.didPressOnButton = { [weak self] operation in
+            guard let self = self else { return }
+       
+            switch operation {
             case .plus:
-                CartManager.shared.addItem(product)
+                if !product.available {
+                    self.outOfStock?(product)
+                    self.cartButton.amount = 0
+                } else {
+                    CartManager.shared.addItem(product)
+                }
             case .minus:
                 CartManager.shared.removeItem(product)
             }
@@ -97,13 +106,13 @@ extension ProductViewCell {
             make.edges.equalToSuperview().inset(5)
         }
         productTitleLabel.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(15)
+            make.width.equalTo(productImageView.snp.width).multipliedBy(0.9)
         }
         
         productImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.width.equalTo(contentView.snp.width).multipliedBy(0.8)
-            make.height.equalTo(productImageView.snp.width).multipliedBy(1.3)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.6)
         }
     }
 }

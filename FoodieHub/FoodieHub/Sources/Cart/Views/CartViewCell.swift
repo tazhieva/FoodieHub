@@ -14,6 +14,8 @@ class CartViewCell: UITableViewCell {
     
     private let imageLoader = ImageDownloader()
     
+    var updateItemsInCart:(() -> ())?
+    
     // MARK: - UI Elements
     
     private let productImageView: UIImageView = {
@@ -78,8 +80,9 @@ extension CartViewCell {
         
         cartButton.amount = product.quantity
         
-        cartButton.didPressOnButton = { [weak self] item in
-            switch item {
+        cartButton.didPressOnButton = { [weak self] operation in
+            self?.updateItemsInCart?()
+            switch operation {
             case .plus:
                 CartManager.shared.addItem(product)
                 
@@ -116,4 +119,3 @@ extension CartViewCell {
         }
     }
 }
-

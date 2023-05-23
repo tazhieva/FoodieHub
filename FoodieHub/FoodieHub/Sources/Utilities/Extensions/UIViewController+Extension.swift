@@ -10,7 +10,6 @@ import UIKit
 extension UIViewController {
     func openMain() {
         let vc = TabBarViewController()
-        let mainTabbar = UINavigationController(rootViewController: vc)
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window {
             window.rootViewController = vc
             let options: UIView.AnimationOptions = .transitionCrossDissolve
@@ -19,7 +18,7 @@ extension UIViewController {
         }
     }
     
-    func showAlert(title: String, message: String, cancelActionTitle: String, defaultActionTitle: String, defaultActionHandler: (() -> Void)?) {
+    func showAlert(title: String, message: String, cancelActionTitle: String? = "", defaultActionTitle: String? = "Ок", defaultActionHandler: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: cancelActionTitle, style: .cancel)
@@ -28,6 +27,14 @@ extension UIViewController {
         let defaultAction = UIAlertAction(title: defaultActionTitle, style: .default) { _ in
             defaultActionHandler?()
         }
+        alert.addAction(defaultAction)
+        
+        present(alert, animated: true)
+    }
+    
+    func showAlertWithNoAction(title: String, message: String, defaultActionTitle: String? = "Ок") {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: defaultActionTitle, style: .default)
         alert.addAction(defaultAction)
         
         present(alert, animated: true)

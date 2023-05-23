@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AmountButtonViewItems: Int {
+enum AmountButtonOperations: Int {
     case plus
     case minus
 }
