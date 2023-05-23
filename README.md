@@ -40,9 +40,6 @@
 <img style="width: 200px" src="assets/ipadpro2.jpg">
 </div>
 
-
-<p>To run the application locally, follow these steps:</p>
-
 <p>Список использованных технологий</p>
 <ul>
   <li>✔️Snapkit - для верстки экран</li>
@@ -52,14 +49,3 @@
   <li>✔️Сохранение данных пользователя в User Defaults</li>
   <li>✔️Адаптивная верстка</li>
 </ul>
-
-<ol>
-  <li>Clone the repository: <code>git clone https://github.com/your/repository.git</code></li>
-  <li>Install the necessary dependencies.</li>
-  <li>Build and run the project on your iOS device or simulator.</li>
-  <li>Explore the CountriesList and CountryDetails screens to view country information.</li>
-</ol>
-
-<h2>License</h2>
-
-<p>This project is licensed under the <a href="LICENSE" target="_blank">MIT License</a>.</p>
