@@ -20,7 +20,7 @@ class SubscriptionPeriodView: UIView {
         return segmentedControl
     }()
     
-    var selectedPeriod: SubscriptionPeriod {
+    var selectedPeriod: SubscriptionPeriod? {
         get {
             let selectedIndex = segmentedControl.selectedSegmentIndex
             return SubscriptionPeriod(rawValue: selectedIndex) ?? .oneMonth

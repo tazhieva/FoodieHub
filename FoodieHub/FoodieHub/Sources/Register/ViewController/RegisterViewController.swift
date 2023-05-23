@@ -12,8 +12,6 @@ class RegisterViewController: UIViewController {
     
     private let viewModel = RegisterViewModel()
     
-    var userInfoUpdated: (() -> Void)?
-    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -36,8 +34,13 @@ class RegisterViewController: UIViewController {
     }()
     
     private let usernamefield = FHTextfield(title: "Введите ваше имя")
-    private let phoneNumber = FHTextfield(title: "Введите ваш номер телефона")
-    private let addressField = FHTextfield(title: "Введите адресс доставки")
+    private let addressField = FHTextfield(title: "Введите адрес доставки")
+    
+    private let phoneNumberField: FHTextfield = {
+        let field = FHTextfield(title: "Введите ваш номер телефона")
+        field.applyPhoneNumberFormatting = true
+        return field
+    }()
     
     private let deleveryTimeLabel: UILabel = {
         let label = UILabel()
@@ -66,7 +69,7 @@ class RegisterViewController: UIViewController {
     }()
     
     private lazy var vStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [usernamefield, phoneNumber, addressField, subscriptionPeriodLabel, subscriptionPeriodView, deleveryTimeLabel, deliverySelectionView])
+        let stack = UIStackView(arrangedSubviews: [usernamefield, phoneNumberField, addressField, subscriptionPeriodLabel, subscriptionPeriodView, deleveryTimeLabel, deliverySelectionView])
         stack.axis = .vertical
         stack.spacing = 10
         stack.alignment = .leading
@@ -80,6 +83,8 @@ class RegisterViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         configUI()
+        setupActions()
+        validateFields()
     }
 }
 
@@ -87,21 +92,83 @@ class RegisterViewController: UIViewController {
 
 extension RegisterViewController {
     @objc private func saveButtonTapped() {
-        viewModel.username = usernamefield.text?.trimmingCharacters(in: .whitespaces) ?? ""
-        viewModel.phoneNumber = phoneNumber.text?.trimmingCharacters(in: .whitespaces) ?? ""
-        viewModel.address = addressField.text?.trimmingCharacters(in: .whitespaces) ?? ""
-        viewModel.pickedDay = deliverySelectionView.selectedDayOfWeek ?? ""
-        viewModel.pickedPeriod = deliverySelectionView.selectedDeliveryPeriod ?? ""
-        viewModel.subscriptionPeriod = subscriptionPeriodView.selectedPeriod.title
+        guard let username = usernamefield.text?.trimmingCharacters(in: .whitespaces),
+              let phoneNumber = phoneNumberField.text?.trimmingCharacters(in: .whitespaces),
+              let address = addressField.text?.trimmingCharacters(in: .whitespaces),
+              let pickedDay = deliverySelectionView.selectedDayOfWeek,
+              let pickedPeriod = deliverySelectionView.selectedDeliveryPeriod,
+              let subscriptionPeriod = subscriptionPeriodView.selectedPeriod?.title else {
+            return
+        }
+ 
+        viewModel.username = username
+        viewModel.phoneNumber = phoneNumber
+        viewModel.address = address
+        viewModel.pickedDay = pickedDay
+        viewModel.pickedPeriod = pickedPeriod
+        viewModel.subscriptionPeriod = subscriptionPeriod
         
         viewModel.saveUserInfo()
         
-        let alert = UIAlertController(title: "", message: "Ваши данные сохранились ✅", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Продолжить покупки", style: .default) { [weak self]  _ in
+        let alert = UIAlertController(title: "", message: NSLocalizedString("Ваши данные сохранились ✅", comment: ""), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Продолжить покупки", comment: ""), style: .default) { [weak self]  _ in
             self?.openMain()
         })
-        self.present(alert, animated: true)
-        userInfoUpdated?()
+        present(alert, animated: true)
+    }
+}
+
+ // MARK: - Field Validation
+
+extension RegisterViewController {
+    private func setupActions() {
+        usernamefield.onValueChange = { [weak self] field in
+            self?.validateUsernameField(field)
+            self?.validateFields()
+        }
+        
+        phoneNumberField.onValueChange = { [weak self] field in
+            self?.validatePhoneNumberField(field)
+            self?.validateFields()
+        }
+        
+        addressField.onValueChange = { [weak self] field in
+            self?.validateAddressField(field)
+            self?.validateFields()
+        }
+    }
+    
+    private func validateUsernameField(_ field: FHTextfield) {
+        if let text = usernamefield.text, text.isEmpty {
+            field.showError()
+        } else {
+            field.hideError()
+        }
+    }
+    
+    private func validatePhoneNumberField(_ field: FHTextfield) {
+        if let text = phoneNumberField.text, text.isEmpty, phoneNumberField.text?.textWithoutPhoneMask.count ?? 0 != 11 {
+            field.showError()
+        } else {
+            field.hideError()
+        }
+    }
+    
+    private func validateAddressField(_ field: FHTextfield) {
+        if let text = addressField.text, text.isEmpty {
+            field.showError()
+        } else {
+            field.hideError()
+        }
+    }
+    
+    private func validateFields() {
+        let isUsernameValid = !(usernamefield.text?.isEmpty ?? true)
+        let isPhoneNumberValid = !(phoneNumberField.text?.isEmpty ?? true) && (phoneNumberField.text?.textWithoutPhoneMask.count ?? 0) == 11
+        let isAddressValid = !(addressField.text?.isEmpty ?? true)
+
+        saveButton.setDisabled(!(isUsernameValid && isPhoneNumberValid && isAddressValid))
+
     }
 }
 
@@ -146,7 +213,7 @@ extension RegisterViewController {
             make.height.equalTo(50)
         }
         
-        let textFields = [usernamefield, phoneNumber, addressField]
+        let textFields = [usernamefield, phoneNumberField, addressField]
         textFields.forEach { textField in
             textField.snp.makeConstraints { make in
                 make.width.equalToSuperview().offset(-60)

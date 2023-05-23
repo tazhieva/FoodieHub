@@ -71,12 +71,6 @@ extension OrderViewController {
     @objc private func editButtonTapped() {
         let vc = RegisterViewController()
         vc.title = "Заполните информацию"
-        vc.userInfoUpdated = { [weak self] in
-            self?.usernameView.userInfoLabel = UserSettings.username
-            self?.addressView.userInfoLabel = UserSettings.address
-            self?.phoneNumberView.userInfoLabel = UserSettings.phoneNumber
-            self?.deliveryTimeView.userInfoLabel = "\(UserSettings.pickedDay ?? "Четверг"), \(UserSettings.pickedPeriod ?? "13:00-15:00")"
-        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

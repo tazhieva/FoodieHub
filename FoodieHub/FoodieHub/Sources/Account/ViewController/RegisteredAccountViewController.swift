@@ -42,12 +42,6 @@ extension RegisteredAccountViewController {
         let vc = RegisterViewController()
         vc.title = "Заполните информацию"
         vc.hidesBottomBarWhenPushed = true
-        vc.userInfoUpdated = { [weak self] in
-            self?.usernameView.userInfoLabel = UserSettings.username
-            self?.addressView.userInfoLabel = UserSettings.address
-            self?.phoneNumberView.userInfoLabel = UserSettings.phoneNumber
-            self?.deliveryTimeView.userInfoLabel = "\(UserSettings.pickedDay ?? ""), \(UserSettings.pickedPeriod ?? "")"
-        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
